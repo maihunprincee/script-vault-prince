@@ -1,19 +1,15 @@
-SCRIPT VAULT BY PRINCE — INSTALLATION
+SCRIPT VAULT BY PRINCE — VERSION 2.0
 
-This is an installable Progressive Web App (PWA). It stores scripts in this browser on this phone using localStorage. It does not sync to a cloud.
+New in v2.0:
+1. AI Script Generator prompt builder: enter topic and preferences, copy the prompt into ChatGPT, then paste the generated script back into the app to save it. This does not call an AI API directly; it opens ChatGPT separately and requires internet.
+2. Content Planner: set recording and publishing dates on any script and see scheduled items and status counts.
+3. Voice & Delivery Guide: select a saved script for line-by-line delivery cues and save personal delivery notes.
 
-IMPORTANT:
-A PWA must be opened from a secure HTTPS website to be installable and work offline. A zip opened directly from Downloads is not enough to install it.
+Install / update:
+This is a Progressive Web App (PWA). Host all files at the root of a secure HTTPS site (GitHub Pages works). Upload/replace index.html and sw.js to update an existing deployment. Keep manifest.webmanifest and icon.svg in the repository root.
 
-Quick setup:
-1. Upload all files in this folder to a static HTTPS host (for example Netlify or GitHub Pages).
-2. Open the deployed HTTPS link in Chrome on your Android phone.
-3. Open Chrome menu (⋮) and choose "Install app" or "Add to Home screen".
-4. Launch Script Vault from the new home-screen icon.
-5. Open it once while online. The app files are then cached for offline use.
+Data and privacy:
+Scripts, schedules, and delivery notes are stored in localStorage in this browser on this device. They are not synced to a cloud database. Do not clear site data. Use Settings > Export backup regularly. Import backup can replace current data.
 
-Data:
-- The 15 starter scripts are included.
-- New/edit changes are stored only in this browser on this device.
-- Do not clear Chrome site data for the deployed site or local scripts may be erased.
-- Settings has Export backup / Import backup. Keep an occasional backup if you want protection against phone loss or browser data clearing.
+AI note:
+The generator builds a detailed prompt for ChatGPT. It does not contain an API key or make direct AI API calls. Copy the prompt, open ChatGPT, paste it, then copy the finished script back into the Save generated script box.
