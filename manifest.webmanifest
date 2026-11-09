@@ -1,0 +1,17 @@
+{
+  "name": "Script Vault by Prince",
+  "short_name": "Script Vault",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#10121a",
+  "theme_color": "#11131b",
+  "description": "Private offline script library by Prince.",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
