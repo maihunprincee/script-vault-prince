@@ -25,6 +25,10 @@ nav button{background:transparent;color:var(--muted);padding:8px 10px}nav button
 .detailtext{white-space:pre-wrap;background:#121520;border:1px solid var(--line);padding:13px;border-radius:12px;font-size:14px;line-height:1.6}.detailhead{display:flex;justify-content:space-between;gap:10px;align-items:center}
 small.note{color:var(--muted);font-size:11px}.hidden{display:none!important}
 @media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}main{padding:22px}}
+
+/* v2 workspace */
+.navlabel{font-size:10px;display:block;margin-top:2px}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 0 12px}.sectionhead h2{margin:0;font-size:20px}.hint{color:var(--muted);font-size:12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.guide-line{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#121520;margin:8px 0}.guide-line b{color:var(--gold);font-size:12px}.guide-line p{margin:5px 0 0;white-space:pre-wrap}.promptbox{min-height:220px}.featurecard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0}.featurecard h3{margin:0 0 6px}.datepill{font-size:11px;color:var(--gold)}
+@media(max-width:380px){nav button{font-size:11px;padding:7px 5px}.navlabel{font-size:9px}.grid2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -53,6 +57,36 @@ small.note{color:var(--muted);font-size:11px}.hidden{display:none!important}
  </div>
  <div class="list" id="scriptList"></div>
 </section>
+<section id="generator" class="hidden">
+ <div class="sectionhead"><h2>🤖 AI Script Generator</h2><span class="pill">ChatGPT assisted</span></div>
+ <div class="featurecard"><p class="hint">Topic aur preferences bharo. Vault ek detailed prompt banayega. Copy karke ChatGPT mein paste karo; generated script ko neeche paste karke Vault mein save kar sakte ho.</p>
+  <div class="field"><label>Which page?</label><select id="g_page"><option>Soch Unfiltered</option><option>Editing Page</option></select></div>
+  <div class="field"><label>Topic / idea</label><textarea id="g_topic" placeholder="Example: Busy hona aur successful hona alag hai..."></textarea></div>
+  <div class="grid2"><div class="field"><label>Target audience</label><input id="g_audience" value="Indian Instagram audience"></div><div class="field"><label>Duration</label><select id="g_duration"><option>30–40 seconds</option><option>45–60 seconds</option><option>60–90 seconds</option></select></div></div>
+  <div class="grid2"><div class="field"><label>Purpose</label><select id="g_purpose"><option>Engagement and discussion</option><option>Build personal brand</option><option>Get editing clients</option><option>Educate / explain</option><option>Storytelling</option></select></div><div class="field"><label>Tone</label><select id="g_tone"><option>Natural Hinglish, human and conversational</option><option>Bold and direct</option><option>Emotional and relatable</option><option>Calm and thoughtful</option><option>Funny with punchlines</option></select></div></div>
+  <div class="field"><label>Extra instructions (optional)</label><textarea id="g_extra" placeholder="Avoid heavy English, add 2 punchlines, face-cam style..."></textarea></div>
+  <div class="actions"><button id="makePrompt">Create script prompt</button><button class="secondary" id="openChatGPT">Open ChatGPT</button></div>
+  <div class="field"><label>Prompt – copy this into ChatGPT</label><textarea id="g_prompt" class="promptbox" readonly placeholder="Your prompt will appear here..."></textarea></div>
+  <button class="gold" id="copyPrompt">Copy prompt</button>
+ </div>
+ <div class="featurecard"><h3>📥 Save generated script</h3><p class="hint">ChatGPT se script milne ke baad yahan paste karo. Phir Add Script se complete details save karna.</p>
+  <div class="field"><label>Generated script</label><textarea id="g_result" class="big" placeholder="Paste your generated script here..."></textarea></div>
+  <button id="saveGenerated">＋ Save as new script</button>
+ </div>
+</section>
+<section id="planner" class="hidden">
+ <div class="sectionhead"><h2>📅 Content Planner</h2><span class="pill">Offline</span></div>
+ <div class="stats"><div class="stat"><b id="planIdeas">0</b><span>Ideas / drafts</span></div><div class="stat"><b id="planReady">0</b><span>Ready to record</span></div><div class="stat"><b id="planRecorded">0</b><span>Recorded</span></div><div class="stat"><b id="planPublished">0</b><span>Published</span></div></div>
+ <div class="featurecard"><h3>🗓️ Upcoming schedule</h3><p class="hint">Add recording and publishing dates while creating or editing a script. Scheduled items appear here.</p><div id="plannerList" class="list"></div></div>
+ <button class="secondary" id="plannerAdd">＋ Add planned script</button>
+</section>
+<section id="delivery" class="hidden">
+ <div class="sectionhead"><h2>🎙️ Voice & Delivery Guide</h2><span class="pill">Practice mode</span></div>
+ <div class="featurecard"><div class="field"><label>Select a saved script</label><select id="deliverySelect"></select></div><div id="deliveryOutput"><p class="hint">Choose a script to get a line-by-line delivery guide.</p></div>
+ <div class="field"><label>Your personal delivery notes</label><textarea id="deliveryNotes" placeholder="Example: Hook par direct eye contact, ending par 2 sec pause..."></textarea></div><button id="saveDeliveryNotes">Save delivery notes</button>
+ </div>
+ <div class="featurecard"><h3>🎬 Quick recording checklist</h3><div id="checklist"><p>☐ Camera lens clean</p><p>☐ Light facing you</p><p>☐ Background noise checked</p><p>☐ Hook 3 times rehearse kiya</p><p>☐ Natural pace, clear words</p><p>☐ 2 seconds pause before and after key lines</p><p>☐ Final take playback karke audio check kiya</p></div></div>
+</section>
 <section id="about" class="hidden">
  <div class="item">
   <h2>About your vault</h2>
@@ -63,7 +97,7 @@ small.note{color:var(--muted);font-size:11px}.hidden{display:none!important}
  </div>
 </section>
 </main>
-<nav><button class="active" data-nav="home">▦ Library</button><button data-nav="about">⚙ Settings</button></nav>
+<nav><button class="active" data-nav="home">▦<span class="navlabel">Library</span></button><button data-nav="generator">✦<span class="navlabel">Generator</span></button><button data-nav="planner">▦<span class="navlabel">Planner</span></button><button data-nav="delivery">♫<span class="navlabel">Delivery</span></button><button data-nav="about">⚙<span class="navlabel">Settings</span></button></nav>
 
 <div class="overlay" id="editor">
  <div class="modal">
@@ -77,7 +111,9 @@ small.note{color:var(--muted);font-size:11px}.hidden{display:none!important}
    <div class="field"><label>Caption</label><textarea id="f_caption"></textarea></div>
    <div class="field"><label>Hashtags</label><textarea id="f_hashtags"></textarea></div>
    <div class="field"><label>Status</label><select id="f_status"><option>Idea</option><option>Script ready / Not recorded</option><option>Script locked / Ready to record</option><option>Recorded</option><option>Published</option><option>Draft / Not confirmed</option><option>Published / First reel</option></select></div>
-   <div class="field"><label>Format / Duration</label><input id="f_format"></div>
+   <div class="field"><label>Format / Duration</label><input id="f_format" placeholder="Face cam · 30–40 sec"></div>
+   <div class="grid2"><div class="field"><label>Recording date</label><input id="f_recordDate" type="date"></div><div class="field"><label>Publishing date</label><input id="f_publishDate" type="date"></div></div>
+   <div class="field"><label>Voice & delivery notes</label><textarea id="f_delivery" placeholder="Pause, emphasis, expression, camera cues..."></textarea></div>
    <div class="field"><label>Notes</label><textarea id="f_notes"></textarea></div>
    <div class="modalfoot"><button type="button" class="secondary" id="cancelEditor">Cancel</button><button type="submit">Save script</button></div>
   </form>
@@ -114,30 +150,53 @@ function render(){
  </article>`).join(""):`<div class="empty">No scripts found.<br>Try another search or add a new script.</div>`;
 }
 function openEditor(s){document.getElementById("editorTitle").textContent=s?"Edit script":"Add new script";
- const map={id:"f_id",page:"f_page",title:"f_title",hook:"f_hook",script:"f_script",caption:"f_caption",hashtags:"f_hashtags",status:"f_status",format:"f_format",notes:"f_notes"};
+ const map={id:"f_id",page:"f_page",title:"f_title",hook:"f_hook",script:"f_script",caption:"f_caption",hashtags:"f_hashtags",status:"f_status",format:"f_format",recordDate:"f_recordDate",publishDate:"f_publishDate",delivery:"f_delivery",notes:"f_notes"};
  Object.entries(map).forEach(([k,v])=>document.getElementById(v).value=s?.[k]??(k==="page"?"Soch Unfiltered":k==="status"?"Idea":""));
  document.getElementById("editor").classList.add("show");
 }
 function editScript(sid){const s=scripts.find(x=>x.id===sid);if(s)openEditor(s);}
 function viewScript(sid){const s=scripts.find(x=>x.id===sid);if(!s)return;viewingId=sid;document.getElementById("viewTitle").textContent=s.title;
- const parts=[["Hook",s.hook],["Full script",s.script],["Caption",s.caption],["Hashtags",s.hashtags],["Status",s.status],["Format / duration",s.format],["Notes",s.notes]];
+ const parts=[["Hook",s.hook],["Full script",s.script],["Caption",s.caption],["Hashtags",s.hashtags],["Status",s.status],["Format / duration",s.format],["Recording date",s.recordDate],["Publishing date",s.publishDate],["Voice & delivery",s.delivery],["Notes",s.notes]];
  document.getElementById("viewContent").innerHTML=parts.filter(p=>p[1]).map(p=>`<div class="field"><label>${esc(p[0])}</label><div class="detailtext">${esc(p[1])}</div></div>`).join("");
  document.getElementById("viewer").classList.add("show");
 }
 function quickStatus(sid){const s=scripts.find(x=>x.id===sid);if(!s)return;const options=["Idea","Script ready / Not recorded","Script locked / Ready to record","Recorded","Published","Draft / Not confirmed"];const next=options[(options.indexOf(s.status)+1+options.length)%options.length];s.status=next;save();}
-document.getElementById("scriptForm").addEventListener("submit",e=>{e.preventDefault();const s={};const map={id:"f_id",page:"f_page",title:"f_title",hook:"f_hook",script:"f_script",caption:"f_caption",hashtags:"f_hashtags",status:"f_status",format:"f_format",notes:"f_notes"};Object.entries(map).forEach(([k,v])=>s[k]=document.getElementById(v).value.trim());if(!s.id)s.id=id();const i=scripts.findIndex(x=>x.id===s.id);if(i>=0)scripts[i]=s;else scripts.unshift(s);document.getElementById("editor").classList.remove("show");save();});
+document.getElementById("scriptForm").addEventListener("submit",e=>{e.preventDefault();const s={};const map={id:"f_id",page:"f_page",title:"f_title",hook:"f_hook",script:"f_script",caption:"f_caption",hashtags:"f_hashtags",status:"f_status",format:"f_format",recordDate:"f_recordDate",publishDate:"f_publishDate",delivery:"f_delivery",notes:"f_notes"};Object.entries(map).forEach(([k,v])=>s[k]=document.getElementById(v).value.trim());if(!s.id)s.id=id();const i=scripts.findIndex(x=>x.id===s.id);if(i>=0)scripts[i]=s;else scripts.unshift(s);document.getElementById("editor").classList.remove("show");save();});
 document.getElementById("addBtn").onclick=()=>openEditor();
 document.getElementById("closeEditor").onclick=document.getElementById("cancelEditor").onclick=()=>document.getElementById("editor").classList.remove("show");
 document.getElementById("closeViewer").onclick=document.getElementById("viewClose").onclick=()=>document.getElementById("viewer").classList.remove("show");
 document.getElementById("viewEdit").onclick=()=>{document.getElementById("viewer").classList.remove("show");editScript(viewingId);};
 document.getElementById("search").oninput=render;document.getElementById("statusFilter").onchange=render;
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{activePage=b.dataset.page;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));render();});
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x===b));document.getElementById("home").classList.toggle("hidden",b.dataset.nav!=="home");document.getElementById("about").classList.toggle("hidden",b.dataset.nav!=="about");});
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x===b));["home","generator","planner","delivery","about"].forEach(id=>document.getElementById(id).classList.toggle("hidden",b.dataset.nav!==id));if(b.dataset.nav==="planner")renderPlanner();if(b.dataset.nav==="delivery")renderDelivery();});
 document.getElementById("exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify(scripts,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="script-vault-backup.json";a.click();URL.revokeObjectURL(a.href);};
 document.getElementById("importBtn").onclick=()=>document.getElementById("importFile").click();
 document.getElementById("importFile").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(!Array.isArray(data))throw Error();if(confirm("Import backup and replace current scripts?")){scripts=data;save();alert("Backup imported.");}}catch(err){alert("This backup file is not valid.");}e.target.value="";};
 document.getElementById("storageInfo").textContent="Storage: this phone/browser only · "+scripts.length+" scripts";
-load();render();
+
+function renderPlanner(){
+ const counts={planIdeas:scripts.filter(s=>/idea|draft/i.test(s.status)).length,planReady:scripts.filter(s=>/ready/i.test(s.status)).length,planRecorded:scripts.filter(s=>s.status==="Recorded").length,planPublished:scripts.filter(s=>/published/i.test(s.status)).length};
+ Object.entries(counts).forEach(([k,v])=>document.getElementById(k).textContent=v);
+ const items=scripts.filter(s=>s.recordDate||s.publishDate).sort((a,b)=>(a.recordDate||a.publishDate||"9999").localeCompare(b.recordDate||b.publishDate||"9999"));
+ document.getElementById("plannerList").innerHTML=items.length?items.map(s=>`<article class="item"><div class="itemtop"><div><div class="meta">${esc(s.page)}</div><h3>${esc(s.title)}</h3></div><span class="pill">${esc(s.status)}</span></div>${s.recordDate?`<div class="datepill">🎥 Record: ${esc(s.recordDate)}</div>`:""}${s.publishDate?`<div class="datepill">📢 Publish: ${esc(s.publishDate)}</div>`:""}<div class="actions"><button class="secondary" onclick="editScript('${esc(s.id)}')">Edit schedule</button></div></article>`).join(""):`<div class="empty">Abhi koi scheduled script nahi hai.<br>Script add/edit karke recording ya publishing date set karo.</div>`;
+}
+function makePrompt(){
+ const page=document.getElementById("g_page").value, topic=document.getElementById("g_topic").value.trim();if(!topic){alert("Pehle topic likho.");return;}
+ const audience=document.getElementById("g_audience").value, duration=document.getElementById("g_duration").value,purpose=document.getElementById("g_purpose").value,tone=document.getElementById("g_tone").value,extra=document.getElementById("g_extra").value;
+ const style=page==="Soch Unfiltered"?"Thought-provoking, grounded, conversational opinion. Facts aur opinions ko clearly separate karo; fake stats ya exaggerated claims mat banana. End with a meaningful question and 'This is Soch Unfiltered.'":"Client-focused video editing content. Clear value proposition, proof-oriented messaging, natural CTA, no unrealistic promises.";
+ const prompt=`Act as an expert short-form video scriptwriter for an Indian creator.\nPAGE: ${page}\nTOPIC: ${topic}\nAUDIENCE: ${audience}\nPURPOSE: ${purpose}\nDURATION: ${duration}\nTONE: ${tone}\nSTYLE RULES: ${style}\nEXTRA INSTRUCTIONS: ${extra||"None"}\n\nWrite in natural spoken Hinglish (Roman Hindi), not robotic and not overloaded with English. Deliver: (1) 3 distinct opening hooks, (2) choose the strongest and explain briefly why, (3) complete ready-to-record script with scene/camera cues, pauses and emphasis, (4) 2 memorable punchlines, (5) caption, (6) 5-8 relevant hashtags, (7) suggested delivery style. Keep it concise enough for the requested duration. Avoid generic motivational filler. Make the argument specific and engaging.`;
+ document.getElementById("g_prompt").value=prompt;
+}
+async function copyPrompt(){const t=document.getElementById("g_prompt").value;if(!t){alert("Pehle Create script prompt dabao.");return;}try{await navigator.clipboard.writeText(t);alert("Prompt copied! Ab ChatGPT mein paste karo.");}catch(e){document.getElementById("g_prompt").select();alert("Prompt select ho gaya. Copy option use karo.");}}
+function renderDelivery(){const sel=document.getElementById("deliverySelect"),current=sel.value;sel.innerHTML=scripts.map(s=>`<option value="${esc(s.id)}">${esc(s.page)} — ${esc(s.title)}</option>`).join("");if(scripts.some(s=>s.id===current))sel.value=current;showDelivery();}
+function showDelivery(){const s=scripts.find(x=>x.id===document.getElementById("deliverySelect").value);const out=document.getElementById("deliveryOutput");if(!s){out.innerHTML='<p class="hint">No scripts saved yet.</p>';return;}document.getElementById("deliveryNotes").value=s.delivery||"";
+ const lines=(s.script||s.hook||"").split(/\n+/).map(x=>x.trim()).filter(Boolean);out.innerHTML=lines.map((line,i)=>{let cue="Normal conversational pace";if(/hook|\?|kyun|soch|kabhi/i.test(line))cue="Direct eye contact · curious / questioning tone";if(/yaad rakh|lekin|matlab|asli|zaroori/i.test(line))cue="Slow down · emphasize the key words";if(/\[.*\]/.test(line))cue="Follow this scene / camera direction";if(i===lines.length-1)cue="End confidently · hold eye contact for 2 seconds";return `<div class="guide-line"><b>LINE ${i+1} · ${esc(cue)}</b><p>${esc(line)}</p></div>`;}).join("");
+}
+document.getElementById("makePrompt").onclick=makePrompt;document.getElementById("copyPrompt").onclick=copyPrompt;document.getElementById("openChatGPT").onclick=()=>window.open("https://chatgpt.com/","_blank");
+document.getElementById("saveGenerated").onclick=()=>{const topic=document.getElementById("g_topic").value.trim(),script=document.getElementById("g_result").value.trim();if(!topic||!script){alert("Topic aur generated script dono zaroori hain.");return;}openEditor({page:document.getElementById("g_page").value,title:topic,script:script,hook:"",status:"Script ready / Not recorded",format:"Face cam · "+document.getElementById("g_duration").value,caption:"",hashtags:"",notes:"Created via Script Vault Generator"});};
+document.getElementById("plannerAdd").onclick=()=>openEditor();document.getElementById("deliverySelect").onchange=showDelivery;document.getElementById("saveDeliveryNotes").onclick=()=>{const s=scripts.find(x=>x.id===document.getElementById("deliverySelect").value);if(!s)return;s.delivery=document.getElementById("deliveryNotes").value.trim();save();alert("Delivery notes saved.");};
+
+load();render();renderPlanner();renderDelivery();
 </script>
 <script>
 if ('serviceWorker' in navigator) {
